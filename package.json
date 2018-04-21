@@ -1,8 +1,8 @@
 {
-  "name": "react-ui",
+  "name": "epiblog-client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nodejsepitech.github.io/EpiBlog",
+  "homepage": "https://nodejsepitech.github.io/epiblogClient",
   "dependencies": {
     "dom-helper": "^1.0.0",
     "history": "^4.7.2",

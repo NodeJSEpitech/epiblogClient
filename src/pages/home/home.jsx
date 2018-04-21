@@ -83,7 +83,7 @@ class Home extends Component {
             />
             <Card>
               <CardTitle
-                title="Epi Blog"
+                title="Epi Blog Deployed"
                 subtitle="Liste des posts, enjoy!"
                 style={style.headers}
               />
