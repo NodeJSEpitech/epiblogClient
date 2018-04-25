@@ -48,7 +48,6 @@ class PostDetail extends Component {
     console.log(post);
     return (
       <div>
-        <MuiThemeProvider>
           <div>
             <AppBar
               title="EpiBlog"
@@ -80,8 +79,6 @@ class PostDetail extends Component {
                 </CardText>
             </Card>
           </div>
-          <ChatWindow/>
-        </MuiThemeProvider>
       </div>
     );
   }

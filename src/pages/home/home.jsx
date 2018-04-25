@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import PostMiniature from './post_miniature';
-import ChatWindow from '../../components/chat_window';
+import Posts from '../../components/Posts.jsx';
 const style = require('./index.js').default;
 
 class Home extends Component {
@@ -73,27 +72,13 @@ class Home extends Component {
   }
 
   render() {
-    
     return (
-      <div>
-        <MuiThemeProvider>
-          <div>
-            <AppBar
-              title="EpiBlog"
-            />
-            <Card>
-              <CardTitle
-                title="Epi Blog Deployed"
-                subtitle="Liste des posts, enjoy!"
-                style={style.headers}
-              />
-              <CardMedia style={style.inputStyle}>
-                {this._renderPosts(this.state.posts, this.props.history)}
-              </CardMedia>
-            </Card>
-          </div>
-          <ChatWindow/>
-        </MuiThemeProvider>
+      <div className="container">
+        <div>
+          <h1>Epi Blog Deployed</h1>
+          <h3>List des posts, enjoy!</h3>
+        </div>
+        <Posts posts={this.state.posts}/>
       </div>
     );
   }

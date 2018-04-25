@@ -15,6 +15,12 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 
 import authentication_reducer from './modules/authentication/reducer' // Or wherever you keep your reducers
 import registerServiceWorker from './registerServiceWorker';
+
+import "./index.css";
+import { MuiThemeProvider } from 'material-ui/styles';
+import ChatWindow from './components/chat_window';
+import AppBar from 'material-ui/AppBar';
+
 //ReactDOM.render(<App />, document.getElementById('root'));
 
 // Create a history of your choosing (we're using a Hash history in this case)
@@ -38,13 +44,18 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-    { /* ConnectedRouter will use the store from Provider automatically */ }
     <ConnectedRouter history={history}>
-      <div>
-        <Route exact path="/" component={Home} history={history}/>
-        <Route path="/post/:postId" component={PostDetail}/>
-        <Route path="/signin" component={Signin}/>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <AppBar
+            title="EpiBlog"
+          />
+          <Route exact path="/" component={Home} history={history}/>
+          <Route path="/post/:postId" component={PostDetail}/>
+          <Route path="/signin" component={Signin}/>
+          <ChatWindow/>
+        </div>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
