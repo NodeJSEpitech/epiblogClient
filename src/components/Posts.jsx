@@ -1,33 +1,31 @@
-import React from "react";
-import { CardText, CardTitle, Card, CardActions } from 'material-ui';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function render(props) {
-	if (!props.posts || props.posts.length === 0) {
-		return (
-			<p>There is no posts yet</p>
-		);
-	}
+/* COMPONENTS */
+import Post from './Post';
 
-	const listPosts = props.posts.map((post, index) =>
-		<div key={'post_' + index} className="post">
-			<Card>
-				<CardTitle
-					title={post.name}
-					subtitle={post.description}
-				/>
-				<CardText>
-					{post.content}
-				</CardText>
-			</Card>
-			<CardActions>
-				
-			</CardActions>
-		</div>
-	);
+/* MATERIAL-UI */
 
-	return(
-		<div>
-			{listPosts}
-		</div>
-	);
+function Posts({ posts }) {
+  if (!posts || posts.length === 0) {
+    return (
+      <p>There is no posts yet</p>
+    );
+  }
+
+  return (
+    <div>
+      {posts.map(post => (
+        <div key={`post_${post.id}`} className="post">
+          <Post post={post} />
+        </div>
+        ))}
+    </div>
+  );
 }
+
+Posts.propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
+
+export default Posts;

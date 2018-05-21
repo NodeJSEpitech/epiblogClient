@@ -1,1 +1,1 @@
-export { authentication_reducer } from './modules/authentication/reducer';
+export default authenticationRreducer from './modules/authentication/reducer';

@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
-import {Launcher} from 'react-chat-window'
+import React, { Component } from 'react';
+import { Launcher } from 'react-chat-window';
 
 class ChatWindow extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -10,30 +9,30 @@ class ChatWindow extends Component {
         author: 'them',
         type: 'text',
         data: {
-          text: 'Salut'
-        }
+          text: 'Salut',
+        },
       },
       {
         author: 'them',
         type: 'text',
         data: {
-          text: "Quelqu'un est up?"
-        }
+          text: "Quelqu'un est up?",
+        },
       },
       {
         author: 'me',
         type: 'text',
         data: {
-          text: 'yep'
-        }
-      }]
+          text: 'yep',
+        },
+      }],
     };
   }
 
   _onMessageWasSent(message) {
     this.setState({
-      messageList: [...this.state.messageList, message]
-    })
+      messageList: [...this.state.messageList, message],
+    });
   }
 
   _sendMessage(text) {
@@ -42,9 +41,9 @@ class ChatWindow extends Component {
         messageList: [...this.state.messageList, {
           author: 'them',
           type: 'text',
-          data: { text }
-        }]
-      })
+          data: { text },
+        }],
+      });
     }
   }
 
@@ -53,13 +52,13 @@ class ChatWindow extends Component {
       <Launcher
         agentProfile={{
           teamName: 'EpiBlog',
-          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
         }}
         onMessageWasSent={this._onMessageWasSent.bind(this)}
         messageList={this.state.messageList}
         showEmoji
       />
-    </div>)
+            </div>);
   }
 }
 export default ChatWindow;

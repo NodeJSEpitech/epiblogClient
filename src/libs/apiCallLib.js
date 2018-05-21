@@ -1,20 +1,18 @@
-import http from 'http';
 import https from 'https';
 import LocalStorage from 'localStorage';
 
 const querystring = require('querystring');
 
-let globalHeaders = {};
-const RequestHandler = (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) ? https : https;
+const globalHeaders = {};
+const RequestHandler = https;
 
 class ApiCallLib {
-
   /**
    * Ajoute des header pour toutes les requêtes envoyées
    * @param {string} key - le nom du header
    * @param {string} value - la valeur du header
    */
-  static setGlobalHeader (key, value) {
+  static setGlobalHeader(key, value) {
     globalHeaders[key] = value;
   }
 
@@ -23,8 +21,8 @@ class ApiCallLib {
    * @param {string} path - le chemin
    * @returns {Promise.<Object>}
    */
-  destroy (path) {
-    return this._request(path, 'DELETE');
+  destroy(path) {
+    return this.request(path, 'DELETE');
   }
 
   /**
@@ -32,8 +30,8 @@ class ApiCallLib {
    * @param {string} path - le chemin
    * @returns {Promise.<Object>}
    */
-  get (path) {
-    return this._request(path, 'GET');
+  get(path) {
+    return this.request(path, 'GET');
   }
 
   /**
@@ -41,8 +39,8 @@ class ApiCallLib {
    * @param {string} path - le chemin
    * @returns {Promise.<Object>}
    */
-  post (path, data) {
-    return this._request(path, 'POST', data);
+  post(path, data) {
+    return this.request(path, 'POST', data);
   }
 
   /**
@@ -50,8 +48,8 @@ class ApiCallLib {
    * @param {string} path - le chemin
    * @returns {Promise.<Object>}
    */
-  put (path, data) {
-    return this._request(path, 'PUT', data);
+  put(path, data) {
+    return this.request(path, 'PUT', data);
   }
 
   /**
@@ -61,11 +59,11 @@ class ApiCallLib {
    * @returns {*}
    * @private
    */
-  _getHeaders (data) {
-    let token = LocalStorage.getItem('token');
-    let headers = {};
+  getHeaders(data) {
+    const token = LocalStorage.getItem('token');
+    const headers = {};
     if (data) {
-      let postData = querystring.stringify(data);
+      const postData = querystring.stringify(data);
       headers['Content-Length'] = Buffer.byteLength(postData);
     }
     headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -83,24 +81,23 @@ class ApiCallLib {
    * @returns {Promise.<object>} - renvoie la réponse
    * @private
    */
-  _request (path, method, dataToSend) {
+  request(path, method, dataToSend) {
     const options = {
-      headers: this._getHeaders(dataToSend),
+      headers: this.getHeaders(dataToSend),
       protocol: 'https',
-      host: "https://epiblog-api.herokuapp.com/",
+      host: 'https://epiblog-api.herokuapp.com/',
       port: 440,
-      path: path,
-      method: method
+      path,
+      method,
     };
 
     return new Promise((resolve, reject) => {
       const req = RequestHandler.request(options, (response) => {
-        let fullData = "";
+        let fullData = '';
         response.on('data', (chunk) => {
           if (!/^20\d$/.test(response.statusCode)) {
-            
-            //if (ApiCallLib._IsJsonString(chunk)) {
-              return reject(JSON.parse(chunk));
+            // if (ApiCallLib.IsJsonString(chunk)) {
+            return reject(JSON.parse(chunk));
             // } else {
             //   console.log(chunk);
             //   return (reject(true));
@@ -112,14 +109,14 @@ class ApiCallLib {
 
         response.on('end', () => {
           if (!/^20\d$/.test(response.statusCode)) {
-            return reject(response.statusCode === 0 ? new Error("Error got an http status 0") : response.statusCode);
+            return reject(response.statusCode === 0 ? new Error('Error got an http status 0') : response.statusCode);
           }
 
-          return resolve(ApiCallLib._tryParseJSON(fullData));
+          return resolve(ApiCallLib.tryParseJSON(fullData));
         });
       });
 
-      req.on('error', (e) => reject(e));
+      req.on('error', e => reject(e));
       if (dataToSend) {
         req.write(querystring.stringify(dataToSend));
       }
@@ -134,29 +131,27 @@ class ApiCallLib {
    * @returns {object|string} - renvoie la valeur en string ou l'objet JSON
    * @private
    */
-  static _tryParseJSON (data) {
-
+  static tryParseJSON(data) {
     console.log(data);
 
     let result = data;
     try {
       result = JSON.parse(data);
-    }
-    catch (ex) {
-      return (result || "").toString();
+    } catch (ex) {
+      return (result || '').toString();
     }
 
     return result;
   }
 
-  static _IsJsonString(str) {
+  static IsJsonString(str) {
     try {
-        JSON.parse(str);
+      JSON.parse(str);
     } catch (e) {
-        return false;
+      return false;
     }
     return true;
-}
+  }
 }
 
 export default ApiCallLib;

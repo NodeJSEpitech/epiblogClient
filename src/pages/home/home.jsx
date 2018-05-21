@@ -1,74 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import PostMiniature from './post_miniature';
-import Posts from '../../components/Posts.jsx';
-const style = require('./index.js').default;
+import React from 'react';
+import Posts from '../../components/Posts';
 
-class Home extends Component {
+import { api } from '../../libs/api';
+
+class Home extends React.Component {
   constructor() {
     super();
 
     this.state = {
       posts: [{
         id: 1,
-        name: "Lorem ipsum dolor sit ame",
-        description: "consectetur adipiscing elit",
-        content: " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: 'Lorem ipsum dolor sit ame',
+        description: 'consectetur adipiscing elit',
+        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       }, {
         id: 2,
-        name: "Lorem ipsum dolor sit ame",
-        description: "consectetur adipiscing elit",
-        content: " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: 'Lorem ipsum dolor sit ame',
+        description: 'consectetur adipiscing elit',
+        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       }, {
         id: 3,
-        name: "Lorem ipsum dolor sit ame",
-        description: "consectetur adipiscing elit",
-        content: " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: 'Lorem ipsum dolor sit ame',
+        description: 'consectetur adipiscing elit',
+        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       }, {
         id: 4,
-        name: "Lorem ipsum dolor sit ame",
-        description: "consectetur adipiscing elit",
-        content: " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        name: 'Lorem ipsum dolor sit ame',
+        description: 'consectetur adipiscing elit',
+        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       }, {
         id: 5,
-        name: "Lorem ipsum dolor sit ame",
-        description: "consectetur adipiscing elit",
-        content: " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      }]
-    }
+        name: 'Lorem ipsum dolor sit ame',
+        description: 'consectetur adipiscing elit',
+        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      }],
+    };
   }
 
   componentWillMount() {
-    // on fera notre dispatch() ici
-  }
-
-  componentWillReceiveProps(nextProps) {
-  }
-
-  _renderPosts(posts, history) {
-    if (!posts || posts.length === 0) {
-      return (
-        <div> no posts founds </div>
-      )
-    }
-    const children = posts.map((post, index) => {
-      return (
-        <PostMiniature
-          post={post}
-          handleViewPress={this._handlePostView.bind(this, post.id, history)}
-          key={`PostMiniature_${index}`}
-        />
-      )
-    })
-    return children;
-  }
-
-  _handlePostView(postId, history) {
-    console.log("redirect à l'event : " + postId);
-
-    history.push(`/post/${postId}`);
+    api.get('/posts')
+      .then((response) => {
+        this.setState({
+          posts: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -76,9 +54,9 @@ class Home extends Component {
       <div className="container">
         <div>
           <h1>Epi Blog Deployed</h1>
-          <h3>List des posts, enjoy!</h3>
+          <h3>Liste des posts, enjoy!</h3>
         </div>
-        <Posts posts={this.state.posts}/>
+        <Posts posts={this.state.posts} />
       </div>
     );
   }

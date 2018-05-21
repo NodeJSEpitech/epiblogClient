@@ -5,36 +5,35 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 class PostMiniature extends Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
+  }
 
-    }
+  componentWillMount() {
+  }
 
-    componentWillMount() {
-    }
+  componentWillReceiveProps(nextProps) {
 
-    componentWillReceiveProps(nextProps) {
-
-    }
+  }
 
 
-    render() {
-        const post = this.props.post;
-        return (
-            <Card style={{margin: "10px"}}>
-                <CardTitle
-                    title={post.name}
-                    subtitle={post.description}
-                />
-                <CardText>
-                    {post.content}
-                </CardText>
-                <CardActions >
-                    <RaisedButton label="View" primary={true} onClick={this.props.handleViewPress.bind(this, post.id)}/>
-                </CardActions>
-            </Card>
-        );
-    }
+  render() {
+    const post = this.props.post;
+    return (
+      <Card style={{ margin: '10px' }}>
+        <CardTitle
+          title={post.name}
+          subtitle={post.description}
+        />
+        <CardText>
+          {post.content}
+        </CardText>
+        <CardActions >
+          <RaisedButton label="View" primary onClick={this.props.handleViewPress.bind(this, post.id)} />
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
 export default PostMiniature;

@@ -1,21 +1,65 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+/* REACT */
+import React from 'react';
+
+/* MATERIAL-UI */
+import { MuiThemeProvider } from 'material-ui';
+
+/* REDUX */
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+} from 'redux';
+//
+import { Provider } from 'react-redux';
+//
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+} from 'react-router-redux';
+import createHistory from 'history/createHashHistory';
+
+/* COMPONENTS */
+import TopBar from './components/TopBar';
+import ChatWindow from './components/ChatWindow';
+
+
+import authenticationReducer from './modules/authentication/reducer'; // Or wherever you keep your reducers
+import Routes from './Routes';
+
 import './index.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+// Create a history of your choosing (we're using a Hash history in this case)
+const history = createHistory();
+
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history);
+
+// Add the reducer to your store on the `router` key
+// Also apply our middleware for navigating
+const store = createStore(
+  combineReducers({
+    authenticationReducer,
+    router: routerReducer,
+  }),
+  applyMiddleware(middleware),
+);
+
+function App() {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider>
+          <div>
+            <TopBar title="Epiblog" />
+            <Routes />
+            <ChatWindow />
+          </div>
+        </MuiThemeProvider>
+      </ConnectedRouter>
+    </Provider>
+  );
 }
 
 export default App;
