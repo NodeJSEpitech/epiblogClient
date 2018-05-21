@@ -9,6 +9,7 @@
     "immutable": "^3.8.2",
     "localStorage": "^1.0.3",
     "material-ui": "^0.20.0",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-chat-window": "^1.0.8",
     "react-dom": "^16.3.2",
@@ -24,9 +25,16 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint src/**/**/**/*.jsx --color",
+    "lint:fix": "eslint src/**/**/**/*.js* --color --fix"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
     "gh-pages": "^1.1.0"
   }
 }
