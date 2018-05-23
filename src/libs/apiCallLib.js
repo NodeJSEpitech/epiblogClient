@@ -61,14 +61,15 @@ class ApiCallLib {
    */
   getHeaders(data) {
     const token = LocalStorage.getItem('token');
-    const headers = {};
+    const headers = {
+    };
     if (data) {
       const postData = querystring.stringify(data);
       headers['Content-Length'] = Buffer.byteLength(postData);
     }
-    headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    headers['Content-Type'] = 'application/json';
     if (token) {
-      headers['X-Access-Token'] = token;
+      headers['x-authentication-token'] = token;
     }
     return Object.assign(headers, globalHeaders);
   }
@@ -82,17 +83,18 @@ class ApiCallLib {
    * @private
    */
   request(path, method, dataToSend) {
+    const jsonBody = JSON.stringify(dataToSend);
+
     const options = {
-      headers: this.getHeaders(dataToSend),
-      protocol: 'https',
-      host: 'https://epiblog-api.herokuapp.com/',
-      port: 440,
+      headers: this.getHeaders(jsonBody),
+      protocol: 'https:',
+      host: 'epiblog-api.herokuapp.com',
       path,
       method,
     };
 
     return new Promise((resolve, reject) => {
-      const req = RequestHandler.request(options, (response) => {
+      const req = https.request(options, (response) => {
         let fullData = '';
         response.on('data', (chunk) => {
           if (!/^20\d$/.test(response.statusCode)) {
@@ -117,8 +119,8 @@ class ApiCallLib {
       });
 
       req.on('error', e => reject(e));
-      if (dataToSend) {
-        req.write(querystring.stringify(dataToSend));
+      if (jsonBody) {
+        req.write(jsonBody);
       }
 
       req.end();

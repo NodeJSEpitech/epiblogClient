@@ -1,4 +1,4 @@
-import ApiCallLib from '../../libs/apiCallLib';
+import { ApiCallLib } from '../../libs';
 
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
@@ -20,14 +20,10 @@ function signup(signupParams) {
   };
 } // <= create
 
-function create(authenticationParams) {
+function create(tokn) {
   return {
     type: 'AUTHENTICATION_CREATE',
-    promise: ApiCallLib.post('/user/login', {
-      email: authenticationParams.email,
-      password: authenticationParams.password,
-      deviceId: 'mon_device',
-    }),
+    token: tokn,
   };
 } // <= create
 

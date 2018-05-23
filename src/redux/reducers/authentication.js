@@ -17,7 +17,7 @@ function destroyToken() {
 } // <= destroyToken
 
 function setToken(state, token) {
-  let nextState;
+  const nextState = state;
 
   LocalStorage.setItem('token', token);
   return nextState.set('token', token);
@@ -33,15 +33,19 @@ function resetToken(state) {
 
 
 function authenticationReducer(state = defaultState, action) {
+  console.log(action)
+  if (action.type == 'AUTHENTICATION_CREATE') {
+    console.log(action.promise);
+  }
   switch (action.type) {
-    case 'SIGNUP_CREATE_SUCCESS':
-      return setToken(state, action.data.data.token);
+    case 'SIGNUP_CREATE':
+      return setToken(state, action.data.token);
 
     case 'SIGNUP_CREATE_FAILURE':
       return failureToken(defaultState);
 
-    case 'AUTHENTICATION_CREATE_SUCCESS':
-      return setToken(state, action.data.data.token);
+    case 'AUTHENTICATION_CREATE':
+      return setToken(state, action.token);
 
     case 'AUTHENTICATION_INIT': {
       const curToken = LocalStorage.getItem('token');
