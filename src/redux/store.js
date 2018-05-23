@@ -1,5 +1,9 @@
+/* REDUX */
 import { createStore } from 'redux';
+import createHistory from 'history/createHashHistory';
 
-'use strict';
+import reducers from './reducers';
 
-const store = createStore();
+export const store = createStore(reducers);
+
+export const history = createHistory();

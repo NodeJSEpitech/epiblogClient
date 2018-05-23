@@ -29,13 +29,13 @@ class ChatWindow extends Component {
     };
   }
 
-  _onMessageWasSent(message) {
+  onMessageWasSent(message) {
     this.setState({
       messageList: [...this.state.messageList, message],
     });
   }
 
-  _sendMessage(text) {
+  sendMessage(text) {
     if (text.length > 0) {
       this.setState({
         messageList: [...this.state.messageList, {
@@ -48,17 +48,19 @@ class ChatWindow extends Component {
   }
 
   render() {
-    return (<div>
-      <Launcher
-        agentProfile={{
-          teamName: 'EpiBlog',
-          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-        }}
-        onMessageWasSent={this._onMessageWasSent.bind(this)}
-        messageList={this.state.messageList}
-        showEmoji
-      />
-            </div>);
+    return (
+      <div>
+        <Launcher
+          agentProfile={{
+            teamName: 'EpiBlog',
+            imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+          }}
+          onMessageWasSent={this.onMessageWasSent.bind(this)}
+          messageList={this.state.messageList}
+          showEmoji
+        />
+      </div>
+    );
   }
 }
 export default ChatWindow;

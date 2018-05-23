@@ -5,46 +5,46 @@ import React from 'react';
 import { MuiThemeProvider } from 'material-ui';
 
 /* REDUX */
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-} from 'redux';
+// import {
+//   createStore,
+//   combineReducers,
+//   applyMiddleware,
+// } from 'redux';
 //
 import { Provider } from 'react-redux';
 //
 import {
   ConnectedRouter,
-  routerReducer,
-  routerMiddleware,
+  // routerReducer,
+  // routerMiddleware,
 } from 'react-router-redux';
-import createHistory from 'history/createHashHistory';
+// import createHistory from 'history/createHashHistory';
 
 /* COMPONENTS */
 import TopBar from './components/TopBar';
 import ChatWindow from './components/ChatWindow';
 
-
-import authenticationReducer from './modules/authentication/reducer'; // Or wherever you keep your reducers
+// import authenticationReducer from './modules/authentication/reducer';
+// Or wherever you keep your reducers
 import Routes from './Routes';
+
+import { store, history } from './redux/store';
 
 import './index.css';
 
-// Create a history of your choosing (we're using a Hash history in this case)
-const history = createHistory();
-
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history);
+// const middleware = routerMiddleware(history);
+
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
-const store = createStore(
-  combineReducers({
-    authenticationReducer,
-    router: routerReducer,
-  }),
-  applyMiddleware(middleware),
-);
+// const store = createStore(
+//   combineReducers({
+//     authenticationReducer,
+//     router: routerReducer,
+//   }),
+//   applyMiddleware(middleware),
+// );
 
 function App() {
   return (

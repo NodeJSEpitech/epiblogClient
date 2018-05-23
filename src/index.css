@@ -11,6 +11,19 @@ body {
 
 .post {
   margin-bottom: 10px;
+  animation: fade-in 700ms forwards;
+}
+
+.toolbar {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  background-color: white !important;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 800px) {
@@ -20,5 +33,15 @@ body {
 
   .post {
     margin-bottom: 0px;
+  }
+}
+
+/* ANIMATION */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
   }
 }

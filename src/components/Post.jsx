@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /* MATERIAL-UI */
@@ -8,15 +9,22 @@ import {
   CardTitle,
 } from 'material-ui';
 
-function Post({ post: { title, description, content } }) {
+function Post({ post }) {
   return (
     <Card>
-      <CardTitle
-        title={title}
-        subtitle={description}
-      />
+      <CardTitle>
+        <Link to={`/posts/${post.id}`}>
+          <h3>{post.title}</h3>
+          <h5>{post.description}</h5>
+        </Link>
+      </CardTitle>
       <CardText>
-        {content}
+        <p>
+          {post.content}
+        </p>
+        <span className="comments-number">
+          {post.comments} comments
+        </span>
       </CardText>
     </Card>
   );
