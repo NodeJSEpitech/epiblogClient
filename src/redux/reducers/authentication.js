@@ -9,8 +9,8 @@ const defaultState = new Immutable.fromJS({
 });
 
 
-function destroyToken() {
-  let nextState;
+function destroyToken(state) {
+  const nextState = state;
 
   LocalStorage.removeItem('token');
   return nextState.set('token', null);
@@ -22,14 +22,6 @@ function setToken(state, token) {
   LocalStorage.setItem('token', token);
   return nextState.set('token', token);
 } // <= setToken
-
-function failureToken(state) {
-  return state.set('error', true);
-} // <= failureToken
-
-function resetToken(state) {
-  return state.set('error', false);
-} // <= resetToken
 
 
 function authenticationReducer(state = defaultState, action) {
@@ -52,12 +44,6 @@ function authenticationReducer(state = defaultState, action) {
 
     case 'AUTHENTICATION_DESTROY':
       return destroyToken(defaultState);
-
-    case 'AUTHENTICATION_CREATE_FAILURE':
-      return failureToken(defaultState);
-
-    case 'AUTHENTICATION_FAILURE_RESET':
-      return resetToken(defaultState);
 
     default:
       return state;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Link from 'react-router-dom/Link';
 
 /* MATERIAL-UI */
 import { Toolbar, ToolbarGroup, Card, CardText, CardActions } from 'material-ui';
@@ -89,7 +88,7 @@ class Signin extends Component {
           className="login-form__input"
         />
       </div>
-    )
+    );
   }
 
   render() {
