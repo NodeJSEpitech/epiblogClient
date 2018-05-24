@@ -46,7 +46,11 @@ import './index.css';
 //   applyMiddleware(middleware),
 // );
 
+import AuthenticationActions from './redux/actions/authentication';
+
 function App() {
+  store.dispatch(AuthenticationActions.init());
+
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>

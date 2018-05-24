@@ -33,16 +33,9 @@ function resetToken(state) {
 
 
 function authenticationReducer(state = defaultState, action) {
-  console.log(action)
-  if (action.type == 'AUTHENTICATION_CREATE') {
-    console.log(action.promise);
-  }
   switch (action.type) {
     case 'SIGNUP_CREATE':
-      return setToken(state, action.data.token);
-
-    case 'SIGNUP_CREATE_FAILURE':
-      return failureToken(defaultState);
+      return setToken(state, action.token);
 
     case 'AUTHENTICATION_CREATE':
       return setToken(state, action.token);
