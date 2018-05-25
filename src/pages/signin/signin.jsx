@@ -107,11 +107,12 @@ class Signin extends Component {
             />
           </ToolbarGroup>
         </Toolbar>
-        <div className="login-form">
+        <div className={`login-form-wrapper ${this.state.formState}`}>
           <Card
             style={{
               marginBottom: '20px',
             }}
+            className="login-form"
           >
             <CardText>
               <TextField

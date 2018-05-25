@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { Launcher } from 'react-chat-window';
+import { connect } from 'react-redux';
+
+import { sendMessage } from '../redux/actions/messages';
+
+const mapStateToProps = ({ messages }) => ({
+  messages,
+});
+
+const mapDispatchToProps = dispatch => ({
+  sendMessage: (message) => {
+    dispatch(sendMessage(message));
+  },
+});
 
 class ChatWindow extends Component {
   constructor() {
     super();
+<<<<<<< HEAD
     this.state = {
       messageList: [{
         author: 'them',
@@ -29,27 +43,23 @@ class ChatWindow extends Component {
     };
 
     this.onMessageWasSent = this.onMessageWasSent.bind(this);
+=======
+
+    this.onMessageWasSent = this.onMessageWasSentHandler.bind(this);
+>>>>>>> 192503bb311f12678506c16ade5ee844c2028bfb
   }
 
-  onMessageWasSent(message) {
-    this.setState({
-      messageList: [...this.state.messageList, message],
-    });
+  componentDidMount() {
+    // console.log(this.props);
   }
 
-  sendMessage(text) {
-    if (text.length > 0) {
-      this.setState({
-        messageList: [...this.state.messageList, {
-          author: 'them',
-          type: 'text',
-          data: { text },
-        }],
-      });
-    }
+
+  onMessageWasSentHandler(message) {
+    this.props.sendMessage(message);
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <Launcher
@@ -58,11 +68,16 @@ class ChatWindow extends Component {
             imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
           }}
           onMessageWasSent={this.onMessageWasSent}
+<<<<<<< HEAD
           messageList={this.state.messageList}
+=======
+          messageList={this.props.messages}
+>>>>>>> 192503bb311f12678506c16ade5ee844c2028bfb
           showEmoji
         />
       </div>
     );
   }
 }
-export default ChatWindow;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatWindow);
