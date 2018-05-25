@@ -68,6 +68,7 @@ class Signin extends Component {
           errorUsername: errors.errorUsername,
           errorConfirmPassword: errors.errorConfirmPassword,
           errorPassword: errors.errorPassword,
+          open: true,
         });
 
         return;
@@ -91,7 +92,6 @@ class Signin extends Component {
         passwordConfirmation: this.state.passwordConfirmation,
         avatar: 'https://www.inbenta.com/wp-content/themes/inbenta/img/icons/avatar.svg?ver=2',
       };
-      console.log("chatte")
       callLib.post('/user', tmp)
         .then(() => callLib.post('/authenticate', this.state))
         .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))

@@ -30,23 +30,54 @@ class PostCreate extends Component {
       content: '',
       open: false,
       token: props.authentication,
+      errorTitle: '',
+      errorDescription: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    if (!this.props.authentication) {
+      this.props.history.push('/');
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       token: nextProps.authentication,
     });
+    if (!nextProps.authentication) {
+      this.props.history.push('/');
+    }
   }
 
   handleSubmit() {
+    const errors = {
+      errorTitle: '',
+      errorDescription: '',
+    };
     const tmp = {
       title: this.state.title,
       description: this.state.description,
       content: this.state.content,
     };
+
+    if (this.state.title.length < 8 || this.state.title.length > 32) {
+      errors.errorTitle = 'Bad title';
+    }
+    if (this.state.description.length < 8 || this.state.description.length > 128) {
+      errors.errorDescription = 'Bad description';
+    }
+
+    if (errors.errorTitle.length !== 0 ||
+      errors.errorDescription.length !== 0) {
+      this.setState({
+        errorDescription: errors.errorDescription,
+        errorTitle: errors.errorTitle,
+        open: true,
+      });
+
+      return;
+    }
+
     callLib.post('/post', tmp)
       .then(() => this.props.history.push('/'))
       .catch(() => { this.setState({ open: true }); });
@@ -77,6 +108,7 @@ class PostCreate extends Component {
                 floatingLabelText="Title"
                 onChange={(event, newValue) => this.setState({ title: newValue })}
                 className="new-post-form__input"
+                errorText={this.state.errorTitle}
               />
               <br />
               <TextField
@@ -84,6 +116,7 @@ class PostCreate extends Component {
                 floatingLabelText="Description"
                 onChange={(event, newValue) => this.setState({ description: newValue })}
                 className="new-post-form__input"
+                errorText={this.state.errorDescription}
               />
               <br />
               <TextField
