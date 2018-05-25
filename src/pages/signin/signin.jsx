@@ -30,10 +30,50 @@ class Signin extends Component {
       lastname: '',
       signup: false,
       open: false,
+      errorUsername: '',
+      errorPassword: '',
+      errorMail: '',
+      errorConfirmPassword: '',
     };
   }
 
   handleSubmit() {
+    const errors = {
+      errorUsername: '',
+      errorPassword: '',
+      errorMail: '',
+      errorConfirmPassword: '',
+    };
+
+    if (this.state.signup) {
+      if (this.state.username.length < 4 || this.state.username.length > 30) {
+        errors.errorUsername = 'Bad username';
+      }
+      if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,15}$/.test(this.state.password))) {
+        errors.errorPassword = 'Invalid password';
+      }
+      if (this.state.password !== this.state.passwordConfirmation) {
+        errors.errorConfirmPassword = 'Confirmation not matching';
+      }
+      if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email))) {
+        errors.errorMail = 'Invalide email adress';
+      }
+
+      if (errors.errorUsername.length !== 0 ||
+        errors.errorPassword.length !== 0 ||
+        errors.errorMail.length !== 0 ||
+        errors.errorConfirmPassword.length !== 0) {
+        this.setState({
+          errorMail: errors.errorMail,
+          errorUsername: errors.errorUsername,
+          errorConfirmPassword: errors.errorConfirmPassword,
+          errorPassword: errors.errorPassword,
+        });
+
+        return;
+      }
+    }
+
     if (!this.state.signup) {
       callLib.post('/authenticate', this.state)
         .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))
@@ -51,6 +91,7 @@ class Signin extends Component {
         passwordConfirmation: this.state.passwordConfirmation,
         avatar: 'https://www.inbenta.com/wp-content/themes/inbenta/img/icons/avatar.svg?ver=2',
       };
+      console.log("chatte")
       callLib.post('/user', tmp)
         .then(() => callLib.post('/authenticate', this.state))
         .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))
@@ -70,6 +111,7 @@ class Signin extends Component {
           floatingLabelText="Confirm password"
           onChange={(event, newValue) => this.setState({ passwordConfirmation: newValue })}
           className="login-form__input"
+          errorText={this.state.errorConfirmPassword}
         />
         <TextField
           hintText="Enter your first name"
@@ -89,6 +131,7 @@ class Signin extends Component {
           floatingLabelText="Email"
           onChange={(event, newValue) => this.setState({ email: newValue })}
           className="login-form__input"
+          errorText={this.state.errorMail}
         />
       </div>
     );
@@ -120,6 +163,7 @@ class Signin extends Component {
                 floatingLabelText="Username"
                 onChange={(event, newValue) => this.setState({ username: newValue })}
                 className="login-form__input"
+                errorText={this.state.errorUsername}
               />
               <TextField
                 type="password"
@@ -127,6 +171,7 @@ class Signin extends Component {
                 floatingLabelText="Password"
                 onChange={(event, newValue) => this.setState({ password: newValue })}
                 className="login-form__input"
+                errorText={this.state.errorPassword}
               />
               {
                 this.state.signup ? this.renderSignup(this) : null
