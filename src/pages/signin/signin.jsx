@@ -49,7 +49,7 @@ class Signin extends Component {
         lastname: this.state.lastname,
         password: this.state.password,
         passwordConfirmation: this.state.passwordConfirmation,
-        avatar: 'https://o.aolcdn.com/images/dims3/GLOB/crop/630x315+0+0/resize/630x315!/format/jpg/quality/85/http%3A%2F%2Fo.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2Fefe897c49141c93a0c5cd105ebc390fd%2F205192450%2Favatar.jpg',
+        avatar: 'https://www.inbenta.com/wp-content/themes/inbenta/img/icons/avatar.svg?ver=2',
       };
       callLib.post('/user', tmp)
         .then(() => callLib.post('/authenticate', this.state))
@@ -136,7 +136,11 @@ class Signin extends Component {
               <RaisedButton label={this.state.signup ? 'Sign up' : 'Sign in'} primary onClick={() => { this.handleSubmit(); }} />
             </CardActions>
           </Card>
-          <RaisedButton label={this.state.signup ? 'Already have an account ?' : 'Don\'t have an account ?'} primary onClick={() => { this.setState({ signup: !this.state.signup }); }} />
+          <RaisedButton
+            label={this.state.signup ? 'Already have an account ?' : 'Don\'t have an account ?'}
+            primary
+            onClick={() => { this.setState({ signup: !this.state.signup }); }}
+          />
         </div>
 
         <Dialog

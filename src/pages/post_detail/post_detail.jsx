@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
-//import './post_detail.css';
 import { api } from '../../libs/api';
 
 import { fetchPosts } from '../../redux/actions/posts';
@@ -23,7 +22,6 @@ class PostDetail extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props)
     if (this.props.posts && this.props.posts.length) { // On à les post dans le store
       this.setState({
         post: this.props.posts.find(post => post.id.toString() === this.props.match.params.id),
