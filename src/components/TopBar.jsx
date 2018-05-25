@@ -16,13 +16,14 @@ class TopBar extends React.Component {
     super(props);
 
     this.state = {
-      token: null,
+      token: props.authentication,
     };
 
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
     this.setState({
       token: nextProps.authentication,
     });
@@ -33,6 +34,7 @@ class TopBar extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <AppBar
         showMenuIconButton={false}

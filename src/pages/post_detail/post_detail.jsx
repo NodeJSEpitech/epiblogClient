@@ -49,13 +49,13 @@ class PostDetail extends Component {
               subtitle="commentaires"
             />
             <CardText>
-                commentaires
-                commentaires
-                commentaires
-                commentaires
-                commentaires
-                commentaires
-                commentaires
+              commentaires
+              commentaires
+              commentaires
+              commentaires
+              commentaires
+              commentaires
+              commentaires
             </CardText>
           </Card>
         </div>

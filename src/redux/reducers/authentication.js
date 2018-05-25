@@ -34,7 +34,6 @@ function authenticationReducer(state = defaultState, action) {
 
     case 'AUTHENTICATION_INIT': {
       const curToken = LocalStorage.getItem('token');
-
       if (curToken && curToken.length) {
         return setToken(defaultState, curToken);
       }
