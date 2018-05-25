@@ -58,12 +58,13 @@ class PostDetail extends Component {
     if (!post) {
       return (<div />);
     }
+    console.log(post)
     return (
       <div>
         <div>
           <Card >
             <CardTitle
-              title={post.name}
+              title={post.title}
               subtitle={post.description}
             />
             <CardText>
@@ -72,16 +73,10 @@ class PostDetail extends Component {
           </Card>
           <Card >
             <CardTitle
-              title="Ici on va mettre les commentaires"
-              subtitle="commentaires"
+              title="Comments"
+              titleColor="rgba(0, 0, 0, 0.54)"
             />
             <CardText>
-              commentaires
-              commentaires
-              commentaires
-              commentaires
-              commentaires
-              commentaires
               commentaires
             </CardText>
           </Card>

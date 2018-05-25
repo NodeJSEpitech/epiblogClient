@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 
 import AuthenticationActions from '../../redux/actions/authentication';
+import UserActions from '../../redux/actions/user';
 import ApiCallLib from '../../libs/apiCallLib';
 
 import './signin.css';
@@ -34,8 +35,10 @@ class Signin extends Component {
     if (!this.state.signup) {
       callLib.post('/authenticate', this.state)
         .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))
-        .then(() => this.props.history.push('/'))
-        .catch((err) => { console.log(err); });
+        .then(() => callLib.get('/me')
+          .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
+          .then(() => this.props.history.push('/'))
+          .catch((err) => { console.log(err); }));
     } else {
       const tmp = {
         username: this.state.username,
