@@ -35,10 +35,10 @@ class Signin extends Component {
     if (!this.state.signup) {
       callLib.post('/authenticate', this.state)
         .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))
-        .then(() => callLib.get('/me')
-          .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
-          .then(() => this.props.history.push('/'))
-          .catch((err) => { console.log(err); }));
+        .then(() => callLib.get('/me'))
+        .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
+        .then(() => this.props.history.push('/'))
+        .catch((err) => { console.log(err); });
     } else {
       const tmp = {
         username: this.state.username,
@@ -50,13 +50,11 @@ class Signin extends Component {
         avatar: 'https://o.aolcdn.com/images/dims3/GLOB/crop/630x315+0+0/resize/630x315!/format/jpg/quality/85/http%3A%2F%2Fo.aolcdn.com%2Fhss%2Fstorage%2Fmidas%2Fefe897c49141c93a0c5cd105ebc390fd%2F205192450%2Favatar.jpg',
       };
       callLib.post('/user', tmp)
-        .then(() => this.setState({
-          firstname: '',
-          lastname: '',
-          email: '',
-          passwordConfirmation: '',
-          signup: false,
-        }))
+        .then(() => callLib.post('/authenticate', this.state))
+        .then(response => (this.props.dispatch(AuthenticationActions.create(response.data.token))))
+        .then(() => callLib.get('/me'))
+        .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
+        .then(() => this.props.history.push('/'))
         .catch((err) => { console.log(err); });
     }
   }
