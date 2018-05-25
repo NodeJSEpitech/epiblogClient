@@ -6,7 +6,7 @@ import { PropTypes } from 'prop-types';
 import { fetchPosts } from '../../redux/actions/posts';
 
 import Posts from '../../components/Posts';
-import { api } from '../../libs/api';
+import ApiCallLib from '../../libs/apiCallLib';
 
 const mapStateToProps = ({ posts }) => ({
   posts,
@@ -19,8 +19,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.api = new ApiCallLib();
+  }
   componentWillMount() {
-    api.get('/posts')
+    this.api.get('/posts')
       .then((response) => {
         this.props.fetchPosts(response.data);
       })
