@@ -42,7 +42,12 @@ class PostCreate extends Component {
   }
 
   handleSubmit() {
-    callLib.post('/post', this.state)
+    const tmp = {
+      title: this.state.title,
+      description: this.state.description,
+      content: this.state.content,
+    }
+    callLib.post('/post', tmp)
       .then(() => this.props.history.push('/'))
       .catch(() => { this.setState({ open: true }); });
   }

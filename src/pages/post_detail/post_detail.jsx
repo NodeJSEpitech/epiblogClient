@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
-import './post_detail.css';
+//import './post_detail.css';
 import { api } from '../../libs/api';
 
 import { fetchPosts } from '../../redux/actions/posts';
