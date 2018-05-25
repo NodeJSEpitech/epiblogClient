@@ -1,7 +1,5 @@
 import ApiCallLib from './apiCallLib';
 
-const apiCallLib = new ApiCallLib();
+// const apiCallLib = new ApiCallLib();
 
-export {
-  apiCallLib as ApiCallLib
-};
+export default { ApiCallLib };

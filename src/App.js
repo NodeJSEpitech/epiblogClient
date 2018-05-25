@@ -31,13 +31,10 @@ import Routes from './Routes';
 import { store, history } from './redux/store';
 
 import UserActions from './redux/actions/user';
-import ApiCallLib from './libs/apiCallLib';
+import callLib from './libs/apiCallLib';
 import AuthenticationActions from './redux/actions/authentication';
 
 import './index.css';
-
-const callLib = new ApiCallLib();
-
 
 // Build the middleware for intercepting and dispatching navigation actions
 // const middleware = routerMiddleware(history);

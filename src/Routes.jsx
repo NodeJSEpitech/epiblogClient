@@ -4,7 +4,7 @@ import Route from 'react-router/Route';
 /* PAGES */
 import Home from './pages/home/home';
 import Signin from './pages/signin/signin';
-import PostDetail from './pages/post_detail/post_detail'
+import PostDetail from './pages/post_detail/post_detail';
 import PostCreate from './pages/post_create/post_create';
 
 function Routes() {

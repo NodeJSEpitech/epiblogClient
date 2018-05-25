@@ -12,11 +12,11 @@ import FontIcon from 'material-ui/FontIcon';
 
 import AuthenticationActions from '../../redux/actions/authentication';
 import UserActions from '../../redux/actions/user';
-import ApiCallLib from '../../libs/apiCallLib';
+import callLib from '../../libs/apiCallLib';
 
 import './signin.css';
 
-const callLib = new ApiCallLib();
+// const callLib = new ApiCallLib();
 
 class Signin extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class Signin extends Component {
         .then(() => callLib.get('/me'))
         .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
         .then(() => this.props.history.push('/'))
-        .catch(() => { this.setState({ open: true }); })
+        .catch(() => { this.setState({ open: true }); });
     }
   }
 

@@ -27,6 +27,8 @@ class ChatWindow extends Component {
         },
       }],
     };
+
+    this.onMessageWasSent = this.onMessageWasSent.bind(this);
   }
 
   onMessageWasSent(message) {
@@ -55,7 +57,7 @@ class ChatWindow extends Component {
             teamName: 'EpiBlog',
             imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
           }}
-          onMessageWasSent={this.onMessageWasSent.bind(this)}
+          onMessageWasSent={this.onMessageWasSent}
           messageList={this.state.messageList}
           showEmoji
         />

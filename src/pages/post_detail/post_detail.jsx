@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import logo from '../../logo.svg';
-import './post_detail.css';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import ChatWindow from '../../components/ChatWindow';
+import PropTypes from 'prop-types';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
+import './post_detail.css';
 import { api } from '../../libs/api';
 
 import { fetchPosts } from '../../redux/actions/posts';
-
-const mapStateToProps = ({ posts }) => ({
-  posts,
-});
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: (posts) => {
@@ -25,40 +18,38 @@ class PostDetail extends Component {
     super(props);
 
     this.state = {
-
-    }
+      post: null,
+    };
   }
 
-  componentDidMount() {
-    if (this.props.post && this.props.post.length) { // On à les post dans le store
-      this.setState = ({
-        post: this.props.posts.find((post) => { return post.id.toString() === this.props.match.params.id })
+  componentWillMount() {
+    console.log(this.props)
+    if (this.props.posts && this.props.posts.length) { // On à les post dans le store
+      this.setState({
+        post: this.props.posts.find(post => post.id.toString() === this.props.match.params.id),
       });
     } else { // On fetch le post
-      api.get('/post/' + this.props.match.params.id)
+      api.get(`/post/${this.props.match.params.id}`)
         .then((response) => {
-          console.log(response);
-
           this.setState({
             post: response.data,
-          })
-        })
+          });
+        });
     }
   }
 
   componentReceiveProps(nextProps) {
     this.setState({
-      post: nextProps.posts.find((post) => { return post.id.toString() === nextProps.match.params.id }),
+      post: nextProps.posts.find(post => post.id.toString() === nextProps.match.params.id),
     });
   }
 
   render() {
-    const post = this.state.post;
+    const { post } = this.state;
 
     if (!post) {
       return (<div />);
     }
-    console.log(post)
     return (
       <div>
         <div>
@@ -85,5 +76,13 @@ class PostDetail extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ posts }) => ({
+  posts,
+});
+
+PostDetail.propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
