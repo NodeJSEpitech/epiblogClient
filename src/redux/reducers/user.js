@@ -14,9 +14,8 @@ function authenticationReducer(state = defaultState, action) {
             return nextState.set('user', action.user);
 
         case 'USER_DESTROY':
-            return nextState;
-
-            return state;
+            return nextState.set('user', null);
+            
         default:
             return state;
     }
