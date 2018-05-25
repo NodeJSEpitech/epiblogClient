@@ -26,8 +26,8 @@ class PostCreate extends Component {
 
     handleSubmit() {
         callLib.post('/post', this.state)
+            .then(() => this.props.history.push('/'))
             .catch((err) => { console.log(err); });
-        //.then(() => this.props.history.push('/'))
     }
 
     render() {
@@ -56,17 +56,20 @@ class PostCreate extends Component {
                                 onChange={(event, newValue) => this.setState({ title: newValue })}
                                 className="new-post-form__input"
                             />
+                            <br/>
                             <TextField
                                 hintText="Post description"
                                 floatingLabelText="Description"
                                 onChange={(event, newValue) => this.setState({ description: newValue })}
                                 className="new-post-form__input"
                             />
+                            <br/>
                             <TextField
-                                hintText="Post content"
-                                floatingLabelText="Content"
+                                floatingLabelText="Post content"
+                                multiLine={true}
+                                fullWidth
+                                rows={10}
                                 onChange={(event, newValue) => this.setState({ content: newValue })}
-                                className="new-post-form_text"
                             />
 
                         </CardText>

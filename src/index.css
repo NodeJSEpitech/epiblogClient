@@ -31,16 +31,22 @@ body {
   display: block !important;
 }
 
+.login-form__text {
+  line-break: auto !important;
+}
+
 .new-post-form {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  height: 1000px;
   min-height: calc(100vh - 64px - 56px);
 }
 
 .new-post__input {
   display: block !important;
+  width: 100% !important;
 }
 
 @media screen and (max-width: 800px) {
