@@ -22,12 +22,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
-  constructor() {
-    super();
-    this.api = new ApiCallLib();
-  }
+
   componentWillMount() {
-    this.api.get('/posts')
+    ApiCallLib.get('/posts')
       .then((response) => {
         this.props.fetchPosts(response.data);
       })

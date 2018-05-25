@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-=======
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import ChatWindow from '../../components/ChatWindow';
->>>>>>> 192503bb311f12678506c16ade5ee844c2028bfb
 import { connect } from 'react-redux';
-import './post_detail.css';
+//import './post_detail.css';
 import { api } from '../../libs/api';
 
 import { fetchPosts } from '../../redux/actions/posts';
