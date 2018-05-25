@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { fetchPosts } from '../../redux/actions/posts';
 
 import Posts from '../../components/Posts';
-import ApiCallLib from '../../libs/apiCallLib';
+import api from '../../libs/apiCallLib';
 
 const mapStateToProps = ({ posts, authentication }) => ({
   posts,
@@ -22,9 +22,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
-
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
   componentWillMount() {
-    ApiCallLib.get('/posts')
+    api.get('/posts')
       .then((response) => {
         this.props.fetchPosts(response.data);
       })
