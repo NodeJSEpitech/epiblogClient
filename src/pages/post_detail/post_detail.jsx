@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
-//import './post_detail.css';
+import './post_detail.css';
 import { api } from '../../libs/api';
 
 import { fetchPosts } from '../../redux/actions/posts';
@@ -83,6 +83,12 @@ const mapStateToProps = ({ posts }) => ({
 
 PostDetail.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.any).isRequired,
+  match: PropTypes.shape({
+    isExact: PropTypes.bool,
+    params: PropTypes.objectOf(PropTypes.string),
+    path: PropTypes.string,
+    url: PropTypes.string,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
