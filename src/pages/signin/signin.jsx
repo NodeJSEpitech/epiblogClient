@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 /* MATERIAL-UI */
 import { Toolbar, ToolbarGroup, Card, CardText, CardActions } from 'material-ui';
+import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -28,6 +29,7 @@ class Signin extends Component {
       firstname: '',
       lastname: '',
       signup: false,
+      open: false,
     };
   }
 
@@ -38,7 +40,7 @@ class Signin extends Component {
         .then(() => callLib.get('/me'))
         .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
         .then(() => this.props.history.push('/'))
-        .catch((err) => { console.log(err); });
+        .catch(() => { this.setState({ open: true }); });
     } else {
       const tmp = {
         username: this.state.username,
@@ -55,7 +57,7 @@ class Signin extends Component {
         .then(() => callLib.get('/me'))
         .then(me => (this.props.dispatch(UserActions.setUser(me.data))))
         .then(() => this.props.history.push('/'))
-        .catch((err) => { console.log(err); });
+        .catch(() => { this.setState({ open: true }); })
     }
   }
 
@@ -135,7 +137,33 @@ class Signin extends Component {
           </Card>
           <RaisedButton label={this.state.signup ? 'Already have an account ?' : 'Don\'t have an account ?'} primary onClick={() => { this.setState({ signup: !this.state.signup }); }} />
         </div>
-      </div>
+
+        <Dialog
+          modal={false}
+          open={this.state.open}
+          onRequestClose={() => { this.setState({ open: false }); }}
+        >
+          {this.state.signup ?
+            <div>
+              There has been an error with your credentials, please try again, and keep in mind that
+              <br />
+              Username should only contain letters and numbers, and be least 4 and at most 30 characters long
+              <br />
+              First and last names are mandatory
+              <br />
+              password must be containing at least 1 digit, 1 uppercase character, 1 lowercase character, 1 special character (space forbidden), and be between 8 and 15 characters
+              <br />
+              this email might already be taken
+              <br />
+              this username might already be taken
+            </div>
+            :
+            <div>
+              There has been an error with your credentials, please check them again.
+            </div>
+          }
+        </Dialog>
+      </div >
     );
   }
 }
