@@ -5,35 +5,62 @@ import logo from '../../logo.svg';
 import './post_detail.css';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import ChatWindow from '../../components/ChatWindow';
+import { connect } from 'react-redux';
+import { api } from '../../libs/api';
+
+import { fetchPosts } from '../../redux/actions/posts';
+
+const mapStateToProps = ({ posts }) => ({
+  posts,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchPosts: (posts) => {
+    dispatch(fetchPosts(posts));
+  },
+});
 
 class PostDetail extends Component {
-  constructor() {
-    super();
-    this.state = { // Bien sur il faudra faire un get hein, c'est du placeholder
-      post: {
-        id: 1,
-        name: 'placeholder',
-        description: 'consectetur adipiscing elit',
-        content: ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      },
-    };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.post && this.props.post.length) { // On à les post dans le store
+      this.setState = ({
+        post: this.props.posts.find((post) => { return post.id.toString() === this.props.match.params.id })
+      });
+    } else { // On fetch le post
+      api.get('/post/' + this.props.match.params.id)
+        .then((response) => {
+          console.log(response);
+
+          this.setState({
+            post: response.data,
+          })
+        })
+    }
   }
 
   componentReceiveProps(nextProps) {
     this.setState({
-      post: nextProps.post,
+      post: nextProps.posts.find((post) => { return post.id.toString() === nextProps.match.params.id }),
     });
   }
 
   render() {
     const post = this.state.post;
-    console.log(post);
+
+    if (!post) {
+      return (<div />);
+    }
     return (
       <div>
         <div>
-          <AppBar
-            title="EpiBlog"
-          />
           <Card >
             <CardTitle
               title={post.name}
@@ -64,4 +91,4 @@ class PostDetail extends Component {
   }
 }
 
-export default PostDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

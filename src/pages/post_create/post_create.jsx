@@ -56,14 +56,14 @@ class PostCreate extends Component {
                                 onChange={(event, newValue) => this.setState({ title: newValue })}
                                 className="new-post-form__input"
                             />
-                            <br/>
+                            <br />
                             <TextField
                                 hintText="Post description"
                                 floatingLabelText="Description"
                                 onChange={(event, newValue) => this.setState({ description: newValue })}
                                 className="new-post-form__input"
                             />
-                            <br/>
+                            <br />
                             <TextField
                                 floatingLabelText="Post content"
                                 multiLine={true}
