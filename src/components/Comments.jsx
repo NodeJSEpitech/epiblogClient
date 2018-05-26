@@ -12,7 +12,7 @@ class Comments extends React.Component {
     return (
       <div className="comments">
         <Card>
-          <CommentWriter sendComment={this.props.sendComment} />
+          <CommentWriter handleChange={ this.props.handleChange } sendComment={this.props.sendComment} />
           <CardText>
             { this.props.comments.map(comment => (
               <div key={`comment_${comment.id}`}>

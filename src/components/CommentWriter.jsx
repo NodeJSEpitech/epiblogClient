@@ -11,6 +11,7 @@ function CommentWriter(props) {
           floatingLabelText="MultiLine and FloatingLabel"
           multiLine={true}
           fullWidth
+          onChange={ props.handleChange }
         />
       </CardText>
       <CardActions style={ { textAlign: "right" } }>

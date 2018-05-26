@@ -27,7 +27,10 @@ class PostDetail extends Component {
 
     this.state = {
       post: null,
+      commentContent: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
@@ -58,14 +61,23 @@ class PostDetail extends Component {
     });
   }
 
+  handleChange(event, newValue) {
+    this.setState({
+      commentContent: newValue
+    })
+  }
+
   sendComment(comment) {
-    console.log("tset");
     socketHelper.sendEvent({
       "x-method": "post",
-      "x-post-id": 321,
+      "x-post-id": Number(this.props.match.params.id),
       "x-username": "admin",
       "x-authenticated-token": LocalStorage.getItem('token'),
-      "body": "Comment aire"});
+      "body": this.state.commentContent,
+    });
+    this.setState({
+      commentContent: '',
+    });
   }
 
   render() {
@@ -92,7 +104,7 @@ class PostDetail extends Component {
               titleColor="rgba(0, 0, 0, 0.54)"
             />
             <CardText>
-              <Comments comments={this.props.comments} sendComment={this.sendComment.bind(this)} />
+              <Comments comments={this.props.comments} handleChange={this.handleChange} sendComment={this.sendComment.bind(this)} />
             </CardText>
           </Card>
         </div>

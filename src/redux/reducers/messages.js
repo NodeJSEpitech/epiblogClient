@@ -12,7 +12,6 @@ const MessagesReducer = (state = [], action) => {
     case SEND_MESSAGE:
     {
       const messages = [...state];
-      console.log(action);
       const req = {
         'x-method': 'post',
         body: action.payload.data.text,

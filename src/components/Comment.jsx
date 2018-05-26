@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardText, CardHeader } from 'material-ui';
 
 function Comment({ comment }) {
-  console.log({ comment });
   return (
     <Card>
       <CardHeader

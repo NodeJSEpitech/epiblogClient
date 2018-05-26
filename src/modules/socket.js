@@ -16,6 +16,9 @@ socket.onmessage = (message) => {
     store.dispatch(fetchComments(dataParsed.data));
   } else if (dataParsed && dataParsed.type === 'comments' && dataParsed.id) {
     const tmp = history.location.pathname.split('/');
+    console.log(Number(tmp[tmp.length - 1]) === dataParsed.id);
+    console.log(Number(tmp[tmp.length - 1]) + " === " + dataParsed.id);
+
     if (Number(tmp[tmp.length - 1]) === dataParsed.id) {
       sendEvent({
         'x-method': 'get',
@@ -28,7 +31,6 @@ socket.onmessage = (message) => {
     if (username === dataParsed.username) {
       who = 'me';
     }
-    console.log(dataParsed);
     store.dispatch((addMessage({
       author: who,
       type: 'text',
