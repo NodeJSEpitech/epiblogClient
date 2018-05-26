@@ -8,7 +8,8 @@ function CommentWriter(props) {
     <Card>
       <CardText>
         <TextField
-          hintText="Your comments"
+          hintText="Message Field"
+          floatingLabelText="Type your comment here"
           multiLine
           fullWidth
           onChange={props.handleChange}

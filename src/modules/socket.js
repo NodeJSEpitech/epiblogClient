@@ -2,7 +2,7 @@ import { store, history } from '../redux/store';
 import { addMessage } from '../redux/actions/messages';
 import fetchComments from '../redux/actions/comments';
 
-const socket = new WebSocket('ws://epiblog-api.herokuapp.com');
+const socket = new WebSocket('wss://epiblog-api.herokuapp.com');
 
 const sendEvent = (event) => {
   socket.send(JSON.stringify(event));

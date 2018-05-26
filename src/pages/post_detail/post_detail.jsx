@@ -31,7 +31,7 @@ class PostDetail extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.sendComment.bind(this);
+    this.sendComment = this.sendComment.bind(this);
   }
 
   componentWillMount() {
