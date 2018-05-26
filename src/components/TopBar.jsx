@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { history } from '../redux/store';
 import PropTypes from 'prop-types';
 import { AppBar, FlatButton } from 'material-ui';
 import AuthenticationActions from '../redux/actions/authentication';
@@ -37,11 +38,16 @@ class TopBar extends React.Component {
     this.props.dispatch(UserActions.destroyUser());
   }
 
+  handleClick() {
+    history.push('/');
+  }
+
   render() {
     return (
       <AppBar
         showMenuIconButton={false}
-        title={`Welcome to ${this.props.title}  ${this.state.username}`}
+        title={<span>{`Welcome to ${this.props.title}  ${this.state.username}`}</span>}
+        onTitleClick={this.handleClick}
         iconElementRight={
           this.state.token === null ?
             <Link to="/signin">
