@@ -11,8 +11,6 @@ const sendEvent = (event) => {
 };
 
 socket.onmessage = (message) => {
-  console.log(message);
-  console.log(history);
   const dataParsed = JSON.parse(message.data);
   if (dataParsed && dataParsed.type === 'comments' && !dataParsed.id) {
     store.dispatch(fetchComments(dataParsed.data));
