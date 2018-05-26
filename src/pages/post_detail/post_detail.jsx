@@ -44,7 +44,6 @@ class PostDetail extends Component {
     }
 
     setTimeout(() => {
-      console.log("event");
       socketHelper.sendEvent({
         'x-method': 'get',
         'x-post-id': this.props.match.params.id,
@@ -59,7 +58,6 @@ class PostDetail extends Component {
   }
 
   render() {
-    console.log(this.props.comments);
     const { post } = this.state;
 
     if (!post) {

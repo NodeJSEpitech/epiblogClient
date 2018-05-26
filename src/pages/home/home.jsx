@@ -25,7 +25,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentWillMount() {
     api.get('/posts')
       .then((response) => {

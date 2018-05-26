@@ -20,8 +20,8 @@ class ChatWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: props.username
-    }
+      username: props.username,
+    };
 
     this.onMessageWasSent = this.onMessageWasSentHandler.bind(this);
   }
