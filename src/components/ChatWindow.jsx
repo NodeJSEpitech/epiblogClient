@@ -7,7 +7,7 @@ import socket from '../modules/socket';
 
 const mapStateToProps = ({ messages, user }) => ({
   messages,
-  username: user.get('user') ? user.get('user').username : 'guest',
+  username: user.get('user').username,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,8 +17,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class ChatWindow extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: props.username
+    }
 
     this.onMessageWasSent = this.onMessageWasSentHandler.bind(this);
   }
@@ -27,10 +30,15 @@ class ChatWindow extends Component {
     // console.log(this.props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      username: nextProps.username,
+    });
+  }
 
   onMessageWasSentHandler(message) {
-    let req = message;
-    req.author = this.props.username;
+    const req = message;
+    req.author = this.state.username;
     this.props.sendMessage(message);
   }
 
@@ -43,7 +51,7 @@ class ChatWindow extends Component {
         }}
         onMessageWasSent={this.onMessageWasSent}
         messageList={this.props.messages}
-        showEmoji
+        showEmoji={false}
       />
     );
   }

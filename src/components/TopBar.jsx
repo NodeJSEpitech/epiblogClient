@@ -8,7 +8,7 @@ import UserActions from '../redux/actions/user';
 
 const mapStateToProps = ({ authentication, user }) => ({
   authentication: authentication.get('token'),
-  username: user.get('user') ? user.get('user').username : 'Guest',
+  username: user.get('user').username,
 });
 
 /* MATERIAL-UI */

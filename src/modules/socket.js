@@ -11,18 +11,16 @@ socket.onmessage = (message) => {
     if (dataParsed && dataParsed.type === 'comments') {
         store.dispatch(fetchComments(dataParsed.data));
     } else if (!dataParsed.status) {
-        const username = store.getState().user.get('user')
-            ? store.getState().user.get('user').username
-            : '';
+        const username = store.getState().user.get('user').username;
         let who = 'them';
-        if (username === '' || username === dataParsed.username) {
+        if (username === dataParsed.username) {
             who = 'me'
         }
         console.log(dataParsed)
         store.dispatch((addMessage({
             author: who,
             type: 'text',
-            data: { text: dataParsed.content }
+            data: { text: who === "me" ? dataParsed.content : `${dataParsed.username} said : \n${dataParsed.content}` }
         })));
     }
 };
