@@ -5,12 +5,16 @@ import { connect } from 'react-redux';
 import api from '../../libs/apiCallLib';
 
 import { fetchPosts } from '../../redux/actions/posts';
+import { fetchComments } from '../../redux/actions/comments';
 
 import socketHelper from '../../modules/socket';
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: (posts) => {
     dispatch(fetchPosts(posts));
+  },
+  fetchComments: (comments) => {
+    dispatch(fetchComments(comments));
   },
 });
 
@@ -38,6 +42,7 @@ class PostDetail extends Component {
     }
 
     setTimeout(() => {
+      console.log("event");
       socketHelper.sendEvent({
         'x-method': 'get',
         'x-post-id': this.props.match.params.id,
@@ -52,6 +57,7 @@ class PostDetail extends Component {
   }
 
   render() {
+    console.log(this.props.comments);
     const { post } = this.state;
 
     if (!post) {
@@ -84,8 +90,9 @@ class PostDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ posts }) => ({
+const mapStateToProps = ({ posts, comments }) => ({
   posts,
+  comments,
 });
 
 PostDetail.propTypes = {
