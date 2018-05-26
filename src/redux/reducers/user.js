@@ -6,7 +6,6 @@ const defaultState = new Immutable.fromJS({
   user: null,
 });
 
-
 function authenticationReducer(state = defaultState, action) {
   const nextState = state;
   switch (action.type) {
@@ -14,7 +13,7 @@ function authenticationReducer(state = defaultState, action) {
       return nextState.set('user', action.user);
 
     case 'USER_DESTROY':
-      return nextState.set('user', null);
+      return nextState.set('user', { username: `Guest${Math.floor(Math.random() * 10000000)}` });
 
     default:
       return state;

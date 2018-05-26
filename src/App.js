@@ -23,6 +23,7 @@ import AuthenticationActions from './redux/actions/authentication';
 import './index.css';
 
 function App() {
+  store.dispatch(UserActions.setUser({ username: `Guest${Math.floor(Math.random() * 10000000)}` }));
   store.dispatch(AuthenticationActions.init());
   api.get('/me')
     .then(me => (store.dispatch(UserActions.setUser(me.data))));
