@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
+  
   componentWillMount() {
     api.get('/posts')
       .then((response) => {

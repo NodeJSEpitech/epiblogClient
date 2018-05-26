@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { sendMessage } from '../redux/actions/messages';
 import socket from '../modules/socket';
 
-const mapStateToProps = ({ messages }) => ({
+const mapStateToProps = ({ messages, user }) => ({
   messages,
+  username: user.get('user') ? user.get('user').username : 'guest',
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -28,11 +29,12 @@ class ChatWindow extends Component {
 
 
   onMessageWasSentHandler(message) {
+    let req = message;
+    req.author = this.props.username;
     this.props.sendMessage(message);
   }
 
   render() {
-    console.log(this.props);
     return (
       <Launcher
         agentProfile={{

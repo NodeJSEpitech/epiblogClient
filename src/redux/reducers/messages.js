@@ -7,19 +7,17 @@ const MessagesReducer = (state = [], action) => {
     {
       const messages = [...state];
       messages.push(action.payload);
-      console.log("action")
-      console.log(action)
       return messages;
     }
     case SEND_MESSAGE:
     {
       const messages = [...state];
+      console.log(action);
       const req = {
         'x-method': 'post',
-        body: 'coucou',
-        'x-username': 'guest',
+        body: action.payload.data.text,
+        'x-username': action.payload.author,
       };
-      console.log(req);
 
       webSocket.sendEvent(req);
       return messages;
