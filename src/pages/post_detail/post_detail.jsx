@@ -9,6 +9,8 @@ import { fetchComments } from '../../redux/actions/comments';
 
 import socketHelper from '../../modules/socket';
 
+import Comments from '../../components/Comments';
+
 const mapDispatchToProps = dispatch => ({
   fetchPosts: (posts) => {
     dispatch(fetchPosts(posts));
@@ -81,7 +83,7 @@ class PostDetail extends Component {
               titleColor="rgba(0, 0, 0, 0.54)"
             />
             <CardText>
-              commentaires
+              <Comments comments={this.props.comments} />
             </CardText>
           </Card>
         </div>

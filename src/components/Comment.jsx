@@ -1,10 +1,17 @@
 import React from 'react';
-import { Card } from 'material-ui';
+import { Card, CardText, CardHeader } from 'material-ui';
 
-function Comment() {
+function Comment({ comment }) {
+  console.log({ comment });
   return (
     <Card>
-      { 'Commentaire' }
+      <CardHeader
+        title={comment.username}
+        avatar={comment.avatar}
+      />
+      <CardText>
+        { comment.content }
+      </CardText>
     </Card>
   );
 }
