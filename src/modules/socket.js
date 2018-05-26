@@ -1,10 +1,8 @@
 import { store, history } from '../redux/store';
 import { addMessage } from '../redux/actions/messages';
-import { fetchComments } from '../redux/actions/comments';
-import { fetchMessages } from '../redux/actions/messages';
+import fetchComments from '../redux/actions/comments';
 
 const socket = new WebSocket('ws://epiblog-api.herokuapp.com');
-//const socket = new WebSocket('ws://localhost:5000');
 
 const sendEvent = (event) => {
   socket.send(JSON.stringify(event));
@@ -16,8 +14,6 @@ socket.onmessage = (message) => {
     store.dispatch(fetchComments(dataParsed.data));
   } else if (dataParsed && dataParsed.type === 'comments' && dataParsed.id) {
     const tmp = history.location.pathname.split('/');
-    console.log(Number(tmp[tmp.length - 1]) === dataParsed.id);
-    console.log(Number(tmp[tmp.length - 1]) + " === " + dataParsed.id);
 
     if (Number(tmp[tmp.length - 1]) === dataParsed.id) {
       sendEvent({
@@ -26,7 +22,7 @@ socket.onmessage = (message) => {
       });
     }
   } else if (!dataParsed.status) {
-    const username = store.getState().user.get('user').username;
+    const { username } = store.getState().user.get('user');
     let who = 'them';
     if (username === dataParsed.username) {
       who = 'me';

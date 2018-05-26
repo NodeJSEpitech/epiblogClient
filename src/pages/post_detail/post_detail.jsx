@@ -6,7 +6,7 @@ import LocalStorage from 'localStorage';
 import api from '../../libs/apiCallLib';
 
 import { fetchPosts } from '../../redux/actions/posts';
-import { fetchComments } from '../../redux/actions/comments';
+import fetchComments from '../../redux/actions/comments';
 
 import socketHelper from '../../modules/socket';
 
@@ -31,6 +31,7 @@ class PostDetail extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.sendComment.bind(this);
   }
 
   componentWillMount() {
@@ -63,17 +64,17 @@ class PostDetail extends Component {
 
   handleChange(event, newValue) {
     this.setState({
-      commentContent: newValue
-    })
+      commentContent: newValue,
+    });
   }
 
-  sendComment(comment) {
+  sendComment() {
     socketHelper.sendEvent({
-      "x-method": "post",
-      "x-post-id": Number(this.props.match.params.id),
-      "x-username": "admin",
-      "x-authenticated-token": LocalStorage.getItem('token'),
-      "body": this.state.commentContent,
+      'x-method': 'post',
+      'x-post-id': Number(this.props.match.params.id),
+      'x-username': 'admin',
+      'x-authenticated-token': LocalStorage.getItem('token'),
+      body: this.state.commentContent,
     });
     this.setState({
       commentContent: '',
@@ -104,7 +105,11 @@ class PostDetail extends Component {
               titleColor="rgba(0, 0, 0, 0.54)"
             />
             <CardText>
-              <Comments comments={this.props.comments} handleChange={this.handleChange} sendComment={this.sendComment.bind(this)} />
+              <Comments
+                comments={this.props.comments}
+                handleChange={this.handleChange}
+                sendComment={this.sendComment}
+              />
             </CardText>
           </Card>
         </div>
@@ -126,6 +131,7 @@ PostDetail.propTypes = {
     path: PropTypes.string,
     url: PropTypes.string,
   }).isRequired,
+  comments: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { history } from '../redux/store';
 import PropTypes from 'prop-types';
 import { AppBar, FlatButton } from 'material-ui';
+import { history } from '../redux/store';
 import AuthenticationActions from '../redux/actions/authentication';
 import UserActions from '../redux/actions/user';
 
@@ -12,7 +12,9 @@ const mapStateToProps = ({ authentication, user }) => ({
   username: user.get('user').username,
 });
 
-/* MATERIAL-UI */
+const handleClick = () => {
+  history.push('/');
+};
 
 class TopBar extends React.Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class TopBar extends React.Component {
     };
 
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleClick = handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,10 +39,6 @@ class TopBar extends React.Component {
   handleLogout() {
     this.props.dispatch(AuthenticationActions.destroy());
     this.props.dispatch(UserActions.destroyUser());
-  }
-
-  handleClick() {
-    history.push('/');
   }
 
   render() {

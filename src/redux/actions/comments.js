@@ -1,6 +1,8 @@
 import { FETCH_COMMENTS } from '../actionTypes';
 
-export const fetchComments = comments => ({
+const fetchComments = comments => ({
   type: FETCH_COMMENTS,
   payload: comments,
 });
+
+export default fetchComments;

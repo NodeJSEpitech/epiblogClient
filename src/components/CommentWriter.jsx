@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Card, CardText, TextField, RaisedButton, CardActions } from 'material-ui';
 
@@ -9,16 +10,21 @@ function CommentWriter(props) {
         <TextField
           hintText="Message Field"
           floatingLabelText="MultiLine and FloatingLabel"
-          multiLine={true}
+          multiLine
           fullWidth
-          onChange={ props.handleChange }
+          onChange={props.handleChange}
         />
       </CardText>
-      <CardActions style={ { textAlign: "right" } }>
-        <RaisedButton label="Post a comment" primary={true} onClick={ () => { props.sendComment(); } } />
+      <CardActions style={{ textAlign: 'right' }}>
+        <RaisedButton label="Post a comment" primary onClick={() => { props.sendComment(); }} />
       </CardActions>
     </Card>
   );
 }
+
+CommentWriter.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  sendComment: PropTypes.func.isRequired,
+};
 
 export default CommentWriter;

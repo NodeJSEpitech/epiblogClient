@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Launcher } from 'react-chat-window';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { sendMessage } from '../redux/actions/messages';
-import socket from '../modules/socket';
 
 const mapStateToProps = ({ messages, user }) => ({
   messages,
@@ -56,5 +56,11 @@ class ChatWindow extends Component {
     );
   }
 }
+
+ChatWindow.propTypes = {
+  username: PropTypes.string.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatWindow);

@@ -197,11 +197,14 @@ class Signin extends Component {
             <div>
               There has been an error with your credentials, please try again, and keep in mind that
               <br />
-              Username should only contain letters and numbers, and be least 4 and at most 30 characters long
+              Username should only contain letters and numbers,
+              and be least 4 and at most 30 characters long
               <br />
               First and last names are mandatory
               <br />
-              password must be containing at least 1 digit, 1 uppercase character, 1 lowercase character, 1 special character (space forbidden), and be between 8 and 15 characters
+              password must be containing at least 1 digit, 1 uppercase character,
+              1 lowercase character, 1 special character (space forbidden),
+              and be between 8 and 15 characters
               <br />
               this email might already be taken
               <br />
