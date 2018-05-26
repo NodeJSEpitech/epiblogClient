@@ -10,17 +10,17 @@ The comments are using websockets and showcase actes as some kind of channeled c
 ## Architecture
 Pretty straigh straightforward, the architecture is as follow :
 
- ├── components
-├── libs
-├── modules
-├── pages
-│   ├── home
-│   ├── post_create
-│   ├── post_detail
-│   └── signin
-└── redux
-    ├── actions
-    └── reducers
+├── components  
+├── libs  
+├── modules  
+├── pages  
+│   ├── home  
+│   ├── post_create  
+│   ├── post_detail  
+│   └── signin  
+└── redux  
+    ├── actions  
+    └── reducers  
 
 **Components** is where our low level components are stored
 **Libs** is where our libs are stored (well only the api lib, really)
