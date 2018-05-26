@@ -20,9 +20,6 @@ class ChatWindow extends Component {
     super();
 
     this.onMessageWasSent = this.onMessageWasSentHandler.bind(this);
-    socket.onmessage = (message) => {
-      console.log(message);
-    };
   }
 
   componentDidMount() {

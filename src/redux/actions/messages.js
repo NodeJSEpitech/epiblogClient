@@ -1,7 +1,7 @@
-import { FETCH_MESSAGES, SEND_MESSAGE } from '../actionTypes';
+import { ADD_MESSAGE, SEND_MESSAGE } from '../actionTypes';
 
-export const fetchMessages = messages => ({
-  type: FETCH_MESSAGES,
+export const addMessage = messages => ({
+  type: ADD_MESSAGE,
   payload: messages,
 });
 
