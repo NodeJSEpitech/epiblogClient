@@ -3,6 +3,7 @@ import { Launcher } from 'react-chat-window';
 import { connect } from 'react-redux';
 
 import { sendMessage } from '../redux/actions/messages';
+import socket from '../modules/socket';
 
 const mapStateToProps = ({ messages }) => ({
   messages,
@@ -19,6 +20,9 @@ class ChatWindow extends Component {
     super();
 
     this.onMessageWasSent = this.onMessageWasSentHandler.bind(this);
+    socket.onmessage = (message) => {
+      console.log(message);
+    };
   }
 
   componentDidMount() {
@@ -33,17 +37,15 @@ class ChatWindow extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
-        <Launcher
-          agentProfile={{
-            teamName: 'EpiBlog',
-            imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-          }}
-          onMessageWasSent={this.onMessageWasSent}
-          messageList={this.props.messages}
-          showEmoji
-        />
-      </div>
+      <Launcher
+        agentProfile={{
+          teamName: 'EpiBlog',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+        }}
+        onMessageWasSent={this.onMessageWasSent}
+        messageList={this.props.messages}
+        showEmoji
+      />
     );
   }
 }

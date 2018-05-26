@@ -6,6 +6,8 @@ import api from '../../libs/apiCallLib';
 
 import { fetchPosts } from '../../redux/actions/posts';
 
+import socketHelper from '../../modules/socket';
+
 const mapDispatchToProps = dispatch => ({
   fetchPosts: (posts) => {
     dispatch(fetchPosts(posts));
@@ -22,11 +24,11 @@ class PostDetail extends Component {
   }
 
   componentWillMount() {
-    if (this.props.posts && this.props.posts.length) { // On à les post dans le store
+    if (this.props.posts && this.props.posts.length) {
       this.setState({
         post: this.props.posts.find(post => post.id.toString() === this.props.match.params.id),
       });
-    } else { // On fetch le post
+    } else {
       api.get(`/post/${this.props.match.params.id}`)
         .then((response) => {
           this.setState({
@@ -34,6 +36,13 @@ class PostDetail extends Component {
           });
         });
     }
+
+    setTimeout(() => {
+      socketHelper.sendEvent({
+        'x-method': 'get',
+        'x-post-id': this.props.match.params.id,
+      });
+    }, 2000);
   }
 
   componentReceiveProps(nextProps) {

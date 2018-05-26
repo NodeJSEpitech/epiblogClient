@@ -19,7 +19,6 @@ import { store, history } from './redux/store';
 import UserActions from './redux/actions/user';
 import api from './libs/apiCallLib';
 import AuthenticationActions from './redux/actions/authentication';
-import SocketContext from './modules/socket';
 
 import './index.css';
 
@@ -30,17 +29,15 @@ function App() {
 
   return (
     <Provider store={store}>
-      <SocketContext.Provider>
-        <ConnectedRouter history={history}>
-          <MuiThemeProvider>
-            <div>
-              <TopBar title="Epiblog" />
-              <Routes />
-              <ChatWindow />
-            </div>
-          </MuiThemeProvider>
-        </ConnectedRouter>
-      </SocketContext.Provider>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider>
+          <div>
+            <TopBar title="Epiblog" />
+            <Routes />
+            <ChatWindow />
+          </div>
+        </MuiThemeProvider>
+      </ConnectedRouter>
     </Provider>
   );
 }
