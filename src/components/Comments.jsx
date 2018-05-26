@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Card } from 'material-ui';
+import { Card, CardText } from 'material-ui';
 
 import Comment from './Comment';
+import CommentWriter from './CommentWriter';
 
 class Comments extends React.Component {
   componentWillMount() {
@@ -11,11 +12,14 @@ class Comments extends React.Component {
     return (
       <div className="comments">
         <Card>
-          { this.props.comments.map(comment => (
-            <div key={`comment_${comment.id}`}>
-              <Comment comment={comment} />
-            </div>
-          )) }
+          <CommentWriter sendComment={this.props.sendComment} />
+          <CardText>
+            { this.props.comments.map(comment => (
+              <div key={`comment_${comment.id}`}>
+                <Comment comment={comment} />
+              </div>
+            )) }
+          </CardText>
         </Card>
       </div>
     );

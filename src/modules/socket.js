@@ -7,6 +7,7 @@ import { fetchMessages } from '../redux/actions/messages';
 const socket = new WebSocket('ws://localhost:5000');
 
 socket.onmessage = (message) => {
+  console.log(message);
     const dataParsed = JSON.parse(message.data);
     if (dataParsed && dataParsed.type === 'comments') {
         store.dispatch(fetchComments(dataParsed.data));

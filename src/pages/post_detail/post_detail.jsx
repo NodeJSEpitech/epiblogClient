@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import { connect } from 'react-redux';
+import LocalStorage from 'localStorage';
 import api from '../../libs/apiCallLib';
 
 import { fetchPosts } from '../../redux/actions/posts';
@@ -58,6 +59,16 @@ class PostDetail extends Component {
     });
   }
 
+  sendComment(comment) {
+    console.log("tset");
+    socketHelper.sendEvent({
+      "x-method": "post",
+      "x-post-id": 321,
+      "x-username": "admin",
+      "x-authenticated-token": LocalStorage.getItem('token'),
+      "body": "Comment aire"});
+  }
+
   render() {
     console.log(this.props.comments);
     const { post } = this.state;
@@ -83,7 +94,7 @@ class PostDetail extends Component {
               titleColor="rgba(0, 0, 0, 0.54)"
             />
             <CardText>
-              <Comments comments={this.props.comments} />
+              <Comments comments={this.props.comments} sendComment={this.sendComment.bind(this)} />
             </CardText>
           </Card>
         </div>
