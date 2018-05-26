@@ -33,7 +33,7 @@ class Comments extends React.Component {
 Comments.propTypes = {
   handleChange: PropTypes.func.isRequired,
   sendComment: PropTypes.func.isRequired,
-  comments: PropTypes.ObjectOf(PropTypes.any).isRequired,
+  comments: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Comments;
